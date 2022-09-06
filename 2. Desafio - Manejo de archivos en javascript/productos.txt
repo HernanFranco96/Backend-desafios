@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Manzana",
+    "price": "6.30",
+    "thumbnail": "./imagen/manzana.jpg",
+    "id": 1
+  },
+  {
+    "title": "Manzana",
+    "price": "6.30",
+    "thumbnail": "./imagen/manzana.jpg",
+    "id": 2
+  }
+]
