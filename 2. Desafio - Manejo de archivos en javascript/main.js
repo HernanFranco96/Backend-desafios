@@ -21,8 +21,8 @@ class Contenedor {
             const newProducts = await this.#readFile();
             return newProducts[newProducts.length - 1].id;
         }else{
-            await fs.promises.writeFile(this.url, JSON.stringify([ {...product, id: 1} ]), 'utf-8');
-            return product.id;
+            await fs.promises.writeFile(this.url, JSON.stringify([ {...product, id: 1} ], null, 2), 'utf-8');
+            return 1;
         }  
     }
 
@@ -75,8 +75,6 @@ const producto = {
 const comercio = new Contenedor('productos.txt');
 
 comercio.save(producto).then(response => console.log(`Producto con el id: ${response} agregado.`));
-
-
 
 setTimeout(() => {
 
