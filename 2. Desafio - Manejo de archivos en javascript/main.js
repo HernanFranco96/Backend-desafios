@@ -76,10 +76,14 @@ const comercio = new Contenedor('productos.txt');
 
 comercio.save(producto).then(response => console.log(`Producto con el id: ${response} agregado.`));
 
-// comercio.deleteAll();
-// comercio.deleteById(1);
+
 
 setTimeout(() => {
+
+    comercio.getById(2).then(response => console.log(response));
+    // comercio.deleteById(2);
+
     comercio.getAll().then(response => console.log(response));
-    // comercio.getById(2).then(response => console.log(response));
+    // comercio.deleteAll();
+
 }, 1000);
