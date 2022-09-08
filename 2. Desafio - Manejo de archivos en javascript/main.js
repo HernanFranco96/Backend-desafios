@@ -16,7 +16,7 @@ class Contenedor {
 
     async save(product){
         const products = await this.#readFile();
-        if(products.length !== 0){
+        if(products !== undefined){
             await fs.promises.writeFile(this.url, JSON.stringify([  ...products, {...product, id: products[products.length - 1].id + 1 }], null, 2), 'utf-8');
             const newProducts = await this.#readFile();
             return newProducts[newProducts.length - 1].id;
@@ -78,7 +78,7 @@ comercio.save(producto).then(response => console.log(`Producto con el id: ${resp
 
 setTimeout(() => {
 
-    comercio.getById(2).then(response => console.log(response));
+    // comercio.getById(2).then(response => console.log(response));
     // comercio.deleteById(2);
 
     comercio.getAll().then(response => console.log(response));
