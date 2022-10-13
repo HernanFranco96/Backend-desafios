@@ -10,6 +10,10 @@ app.use(urlencoded({ extended: true }));
 
 app.use('/', router);
 
+app.all('*', (req, res) => {
+    res.status(404).send({Error:'Path not found.'})
+})
+
 const server = app.listen(8080, () => {
     console.log(`Servidor escuchando en el puerto: ${server.address().port}`);
 });
