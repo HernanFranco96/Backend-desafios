@@ -1,0 +1,58 @@
+
+use ecommerce
+
+db.createCollection("productos")
+db.createCollection("mensajes")
+
+db.productos.insertMany([
+    {title: "Martillo", price: 1200, thumbnail: "public/uploads/martillo.jpg"},
+    {title: "Destornillador", price: 800, thumbnail: "public/uploads/destornillador.jpg"},
+    {title: "Llave Inglesa", price: 2000, thumbnail: "public/uploads/llave_inglesa.jpg"},
+    {title: "Llave Crique", price: 1700, thumbnail: "public/uploads/llave_crique.jpg"},
+    {title: "Adaptador", price: 650, thumbnail: "public/uploads/adaptador.jpg"},
+    {title: "Trincheta", price: 1250, thumbnail: "public/uploads/trincheta.jpg"},
+    {title: "Accesorios de Ferretería", price: 3500, thumbnail: "public/uploads/accesorios_ferreteria.jpg"},
+    {title: "Pico de Loro", price: 2600, thumbnail: "public/uploads/pico_loro.jpg"},
+    {title: "Serrucho", price: 1000, thumbnail: "public/uploads/serrucho.jpg"},
+    {title: "Sierra", price: 1100, thumbnail: "public/uploads/sierra.jpg"}
+])
+
+db.mensajes.insertMany([
+    {author: "Vendedor", message: "Buenas tardes", date: "21/10/2022 17:18:33"},
+    {author: "Cliente", message: "Buenas tardes", date: "21/10/2022 17:18:35"},
+    {author: "Vendedor", message: "¿Qué esta buscando?", date: "21/10/2022 17:18:38"},
+    {author: "Cliente", message: "Busco un martillo y una moladora", date: "21/10/2022 17:18:41"},
+    {author: "Vendedor", message: "Aguardeme un momento", date: "21/10/2022 17:18:45"},
+    {author: "Cliente", message: "¿Demorara mucho?", date: "21/10/2022 17:19:30"},
+    {author: "Vendedor", message: "Disculpe la tardansa", date: "21/10/2022 17:22:08"},
+    {author: "Vendedor", message: "Solo nos queda martillo a un costo de 1200 pesos", date: "21/10/2022 17:22:10"},
+    {author: "cliente", message: "Esta bien, me lo llevo.", date: "21/10/2022 17:22:15"},
+    {author: "Vendedor", message: "Perfecto, aquí esta su vuelto. Gracias por su compra.", date: "21/10/2022 17:22:25"},
+])
+
+db.productos.find()
+db.mensajes.find()
+
+db.productos.estimatedDocumentCount()
+db.mensajes.estimatedDocumentCount()
+
+CRUD
+
+CREATE
+db.productos.insertOne({title: "Moladora", price: 4500, thumbnail: "public/uploads/moladora.jpg"})
+
+READ
+db.productos.find({price: {$lt: 1000}}, {title:1})
+db.productos.find({$and: [{price: {$gte: 1000}}, {price: {$lte: 3000}}]}, {title:1})
+db.productos.find({price: {$gt: 3000}}, {title:1})
+db.productos.find({price: {$gt: 500}}, {title:1}).sort({price: 1}).skip(2).limit(1)
+
+UPDATE
+db.productos.updateMany({}, {$set: {stock: 100}})
+db.productos.updateMany({price: {$gt:4000}}, {$set: {stock: 0}})
+
+DELETE
+db.productos.deleteMany({price: {$lt: 1000}})
+
+CREACIÓN DE USUARIO
+db.createUser({user: "pepe", pwd: "asd456", roles: [{role: "read", db: "ecommerce"}]})

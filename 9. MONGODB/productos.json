@@ -1,0 +1,73 @@
+[{
+  "_id": {
+    "$oid": "6352fcf4f3ea620c1af104e2"
+  },
+  "title": "Martillo",
+  "price": 1200,
+  "thumbnail": "public/uploads/martillo.jpg",
+  "stock": 100
+},{
+  "_id": {
+    "$oid": "6352fcf4f3ea620c1af104e4"
+  },
+  "title": "Llave Inglesa",
+  "price": 2000,
+  "thumbnail": "public/uploads/llave_inglesa.jpg",
+  "stock": 100
+},{
+  "_id": {
+    "$oid": "6352fcf4f3ea620c1af104e5"
+  },
+  "title": "Llave Crique",
+  "price": 1700,
+  "thumbnail": "public/uploads/llave_crique.jpg",
+  "stock": 100
+},{
+  "_id": {
+    "$oid": "6352fcf4f3ea620c1af104e7"
+  },
+  "title": "Trincheta",
+  "price": 1250,
+  "thumbnail": "public/uploads/trincheta.jpg",
+  "stock": 100
+},{
+  "_id": {
+    "$oid": "6352fcf4f3ea620c1af104e8"
+  },
+  "title": "Accesorios de Ferretería",
+  "price": 3500,
+  "thumbnail": "public/uploads/accesorios_ferreteria.jpg",
+  "stock": 100
+},{
+  "_id": {
+    "$oid": "6352fcf4f3ea620c1af104e9"
+  },
+  "title": "Pico de Loro",
+  "price": 2600,
+  "thumbnail": "public/uploads/pico_loro.jpg",
+  "stock": 100
+},{
+  "_id": {
+    "$oid": "6352fcf4f3ea620c1af104ea"
+  },
+  "title": "Serrucho",
+  "price": 1000,
+  "thumbnail": "public/uploads/serrucho.jpg",
+  "stock": 100
+},{
+  "_id": {
+    "$oid": "6352fcf4f3ea620c1af104eb"
+  },
+  "title": "Sierra",
+  "price": 1100,
+  "thumbnail": "public/uploads/sierra.jpg",
+  "stock": 100
+},{
+  "_id": {
+    "$oid": "63530213f3ea620c1af104f6"
+  },
+  "title": "Moladora",
+  "price": 4500,
+  "thumbnail": "public/uploads/moladora.jpg",
+  "stock": 0
+}]

@@ -1,0 +1,71 @@
+[{
+  "_id": {
+    "$oid": "6353012af3ea620c1af104ec"
+  },
+  "author": "Vendedor",
+  "message": "Buenas tardes",
+  "date": "21/10/2022 17:18:33"
+},{
+  "_id": {
+    "$oid": "6353012af3ea620c1af104ed"
+  },
+  "author": "Cliente",
+  "message": "Buenas tardes",
+  "date": "21/10/2022 17:18:35"
+},{
+  "_id": {
+    "$oid": "6353012af3ea620c1af104ee"
+  },
+  "author": "Vendedor",
+  "message": "¿Qué esta buscando?",
+  "date": "21/10/2022 17:18:38"
+},{
+  "_id": {
+    "$oid": "6353012af3ea620c1af104ef"
+  },
+  "author": "Cliente",
+  "message": "Busco un martillo y una moladora",
+  "date": "21/10/2022 17:18:41"
+},{
+  "_id": {
+    "$oid": "6353012af3ea620c1af104f0"
+  },
+  "author": "Vendedor",
+  "message": "Aguardeme un momento",
+  "date": "21/10/2022 17:18:45"
+},{
+  "_id": {
+    "$oid": "6353012af3ea620c1af104f1"
+  },
+  "author": "Cliente",
+  "message": "¿Demorara mucho?",
+  "date": "21/10/2022 17:19:30"
+},{
+  "_id": {
+    "$oid": "6353012af3ea620c1af104f2"
+  },
+  "author": "Vendedor",
+  "message": "Disculpe la tardansa",
+  "date": "21/10/2022 17:22:08"
+},{
+  "_id": {
+    "$oid": "6353012af3ea620c1af104f3"
+  },
+  "author": "Vendedor",
+  "message": "Solo nos queda martillo a un costo de 1200 pesos",
+  "date": "21/10/2022 17:22:10"
+},{
+  "_id": {
+    "$oid": "6353012af3ea620c1af104f4"
+  },
+  "author": "cliente",
+  "message": "Esta bien, me lo llevo.",
+  "date": "21/10/2022 17:22:15"
+},{
+  "_id": {
+    "$oid": "6353012af3ea620c1af104f5"
+  },
+  "author": "Vendedor",
+  "message": "Perfecto, aquí esta su vuelto. Gracias por su compra.",
+  "date": "21/10/2022 17:22:25"
+}]
