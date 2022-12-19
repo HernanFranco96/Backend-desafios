@@ -3,8 +3,6 @@ const { json, urlencoded } = express;
 const app = express();
 const router = require('./src/moduls/routers');
 
-const ADMINISTRADOR = true;
-
 app.use(json());
 app.use(urlencoded({ extended: true }));
 

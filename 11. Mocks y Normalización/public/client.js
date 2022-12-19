@@ -49,12 +49,12 @@ const renderProduct = data => {
 };
 
 const renderChat = data => {
-    const arrayChat = JSON.parse(data);
-    const html = arrayChat.map((element) => {
+    const arrayProducts = JSON.parse(data);
+    const html = arrayProducts.map((element) => {
         return (`
-            <b style="color=blue">${element.author}</b>
+            <b style="color=blue">${element.email}</b>
             <p style="color=#E59866">${element.date}</p>
-            <p style="color=green"><i>${element.message}</i></p>
+            <p style="color=green"><i>${element.text}</i></p>
         `);
     }).join(" ");
     document.getElementById('messages').innerHTML = html;
@@ -64,7 +64,7 @@ socket.on('products', data => {
     renderProduct(data);
 });
  
-socket.on('save-Message', data => {
+socket.on('show-messages', data => {
     renderChat(data);
     document.getElementById('message').value = "";
 });

@@ -18,5 +18,15 @@
     "stock": 200,
     "id": 2,
     "timestamp": "11/10/2022, 21:02:45"
+  },
+  {
+    "nombre": "salame",
+    "descripcion": "Buena calidad",
+    "codigo": 555,
+    "foto": "./imagenes/salame.jpg",
+    "precio": 800,
+    "stock": 34,
+    "id": 3,
+    "timestamp": "13/10/2022, 20:29:35"
   }
 ]

@@ -47,16 +47,15 @@ io.on('connection', client => {
     });
 
     client.on('new-Message', message => {
-        let messages = {};
+        let date = '';
         const newMessage = normalizar(message);
         chat.save(newMessage);
         chat.getAll().then(resp => {
-            resp.forEach(message => {
-                message = { post: desnormalize(message) };
+            resp.forEach(posts => {
+                date = desnormalize(posts);
+                io.sockets.emit('show-messages', JSON.stringify(date));
             });
         });
-        console.log(messages)
-        io.sockets.emit('save-Message', JSON.stringify(messages));
     });
 
     client.on('disconnect', () => {
