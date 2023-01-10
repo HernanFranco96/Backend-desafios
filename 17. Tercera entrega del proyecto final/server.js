@@ -1,61 +1,114 @@
-const { httpServer } = require('./app');
-const { logger } = require('./logs/loggers');
-const yargs = require('yargs/yargs')(process.argv.slice(2));
-const args = yargs
-.default({
-    port: 8080,
-    mode: 'fork',
+const express = require(`express`)
+const app = express()
+const passport = require('passport')
+const log4js = require('./utils/logs.js')
+const MongoStore = require(`connect-mongo`)
+const dotenv = require(`dotenv`)
+const parseArgs = require(`minimist`)
+dotenv.config()
+
+app.use('/avatar', express.static('./public/avatar'))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+const session = require('express-session')
+
+app.use(
+  session({
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URL,
+      ttl: 10,
+    }),
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+    cookie: { maxAge: 600000 },
+  }),
+)
+app.use(passport.initialize())
+app.use(passport.session())
+
+const args = parseArgs(process.argv.slice(2))
+
+app.set(`views`, `./views`)
+app.set(`view engine`, `ejs`)
+
+//Middlewares
+const loggerConsole = log4js.getLogger(`default`)
+const loggerArchiveWarn = log4js.getLogger(`warnArchive`)
+const loggerArchiveError = log4js.getLogger(`errorArchive`)
+
+app.use((req, res, next) => {
+  loggerConsole.info(`
+    Ruta consultada: ${req.originalUrl}
+    Metodo ${req.method}`)
+  next()
 })
-.argv
 
-console.log(args);
-
-const cluster = require('cluster');
-const cpus = require('os').cpus().length;
-
-if(args.mode == 'cluster'){
-    if(cluster.isMaster){
-        logger.info(`Nodo primario: ${process.pid} corriendo`)
-        for(let i = 0; i < cpus; i++){
-            cluster.fork();
-        }
-        cluster.on('exit', (worker) => {
-            logger.info(`Worker ${worker.process.pid} finalizado`)
-        });
-    }else{
-        try {
-            logger.info(`Nodo Worker corriendo en el proceso ${process.pid}`)
-        } catch (error) {
-            logger.warn(`Worker ${worker.process.pid} finalizado`)
-        }
-    } 
-} else if(args.mode == 'fork'){
-    httpServer.listen(args.port, error => {
-        if (error) console.log(error)
-        logger.info(`Servidor corriendo en puerto ${args.port}, mode: FORK`)
-    })
+const isLogged = (req, res, next) => {
+  let msgError = `Para acceder a esta URL debe iniciar sesión`
+  if (req.user) {
+    next()
+  } else {
+    return res.render('viewError', { msgError })
+  }
 }
-/**
-Correr servidor con cluster
-    node server.js --mode 'cluster'
-    node server.js --port 8081 --mode 'cluster'
 
-Correr servidor con fork
-    node server.js
-    node server.js --mode 'fork'
+const productosRouter = require(`./routes/productosRouter`)
+const carritoRouter = require(`./routes/carritoRouter`)
+const { loginRouter } = require(`./routes/userRouter`)
+const { signupRouter } = require(`./routes/userRouter`)
+const { logoutRouter } = require(`./routes/userRouter`)
+const { profileRouter } = require(`./routes/userRouter`)
+const generalViewsRouter = require(`./routes/generalViewsRouter`)
+const ordenesRouter = require(`./routes/ordenesRouter`)
 
-Forever
-    forever start server.js
-    forever start server.js --fork
-    forever start server.js -p 8081
-    forever stop server.js
-    forever stopall
+app.use(`/`, generalViewsRouter)
+app.use(`/api/productos`, isLogged, productosRouter)
+app.use(`/api/carrito`, isLogged, carritoRouter)
+app.use(`/api/ordenes`, isLogged, ordenesRouter)
+app.use(`/login`, loginRouter)
+app.use(`/signup`, signupRouter)
+app.use('/logout', isLogged, logoutRouter)
+app.use(`/profile`, isLogged, profileRouter)
 
-PM2
-    pm2 start server.js
-    pm2 start server.js --watch
-    pm2 start server.js -p 8081
-    pm2 stop server.js
-    pm2 monit
+app.use((req, res) => {
+  loggerConsole.warn(`
+    Estado: 404
+    Ruta consultada: ${req.originalUrl}
+    Metodo ${req.method}`)
 
-*/
+  loggerArchiveWarn.warn(
+    `Estado: 404, Ruta consultada: ${req.originalUrl}, Metodo ${req.method}`,
+  )
+  const msgError = `Estado: 404, Ruta consultada: ${req.originalUrl}, Metodo ${req.method}`
+
+  res.render(`viewError`, { msgError })
+
+})
+
+
+const CLUSTER = args.CLUSTER
+
+const PORT = process.env.PORT || 8080
+const runServer = (PORT) => {
+  app.listen(PORT, () =>
+    loggerConsole.debug(`Servidor escuchando en el puerto ${PORT}`),
+  )
+}
+
+if (CLUSTER) {
+  if (cluster.isMaster) {
+    for (let i = 0; i < numCPUs; i++) {
+      cluster.fork()
+    }
+
+    cluster.on(`exit`, (worker, code, signal) => {
+      cluster.fork()
+    })
+  } else {
+    runServer(PORT)
+  }
+} else {
+  runServer(PORT)
+}
