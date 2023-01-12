@@ -3,9 +3,9 @@ const storage = require(`../daos/index`);
 const productsStorage = storage().productos;
 
 const addProduct = async (req, res) => {
-    if (userLog.admin) {
+    // if (userLog.admin) {
         try {
-            const name = req.body.nombre;
+            const nombre = req.body.nombre;
             const price = Number(req.body.precio);
             const url = req.body.thumbnail;
             const description = req.body.descripcion;
@@ -15,15 +15,16 @@ const addProduct = async (req, res) => {
 
             const newProducto = {
                 timestamp: date,
-                nombre: `${name}`,
-                descripcion: `${detail}`,
-                codigo: code,
-                thumbnail: `${url}`,
-                precio: price,
+                title: nombre,
+                detail: description,
+                code: code,
+                thumbnail: url,
+                price: price,
                 stock: stock,
                 cantidad: 0
             };
             const id = await productsStorage.save(newProducto);
+            console.log(id)
 
             return res.redirect(`/api/productos`);
         } catch (err) {
@@ -31,11 +32,11 @@ const addProduct = async (req, res) => {
                 error: `Error al crear un producto ${err}`
             });
         }
-    } else {
-        return res.status(404).json({
-            error: `Ruta no permitida, no es usuario con perfil administrador.`
-        });
-    }
+    // } else {
+    //     return res.status(404).json({
+    //         error: `Ruta no permitida, no es usuario con perfil administrador.`
+    //     });
+    // }
 }
 
 const getAllProducts = async (req, res) => {
